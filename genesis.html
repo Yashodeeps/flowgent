@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Wizard Patterns — Handoff doc for new repo</title>
+<style>
+  :root {
+    --ink:        #0b1b2e;
+    --ink-soft:   #3c5170;
+    --ink-mute:   #6b7d96;
+    --line:       #d8e1ec;
+    --line-soft:  #eaf0f7;
+    --bg:         #f4f7fb;
+    --paper:      #ffffff;
+    --brand:      #0b66c2;
+    --brand-deep: #084a8e;
+    --brand-soft: #e6f0fb;
+    --brand-mid:  #4892d8;
+    --amber:      #b07512;
+    --amber-soft: #fff5e0;
+    --green:      #1f5a32;
+    --green-soft: #e8f4ec;
+    --red:        #7a1f1f;
+    --red-soft:   #fdecec;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 56px 40px 96px;
+  }
+
+  .eyebrow {
+    color: var(--brand);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+  h1 {
+    font-size: 42px;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+    max-width: 760px;
+  }
+  .byline {
+    color: var(--ink-mute);
+    font-size: 13px;
+    margin-top: 18px;
+  }
+
+  h2 {
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px;
+    color: var(--ink);
+    font-weight: 650;
+  }
+  h3 {
+    font-size: 17px;
+    margin: 0 0 8px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .roof {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  p { margin: 0 0 12px; color: var(--ink-soft); }
+
+  .divider {
+    margin: 56px 0 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 30px;
+    margin: 18px 0;
+  }
+  .card.brand {
+    background: var(--brand-soft);
+    border-color: #bcd6ee;
+  }
+  .card.brand p { color: var(--brand-deep); }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  th {
+    background: var(--brand-soft);
+    color: var(--brand-deep);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* ARCH DIAGRAM */
+  .arch {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    margin: 22px 0 28px;
+  }
+  .arch svg { width: 100%; height: auto; display: block; }
+
+  .legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .legend .swatch {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  .legend .dot {
+    width: 12px; height: 12px;
+    border-radius: 3px; margin-top: 4px; flex-shrink: 0;
+  }
+
+  /* PATTERNS */
+  .pat {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 14px 0;
+    position: relative;
+  }
+  .pat-no {
+    position: absolute;
+    top: 22px;
+    left: -22px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: white;
+    display: grid; place-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(11,102,194,0.25);
+  }
+  .pat h3 { margin-bottom: 4px; font-size: 18px; }
+  .pat .lane {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .pat .why {
+    background: var(--brand-soft);
+    border-left: 3px solid var(--brand);
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: var(--brand-deep);
+    margin: 10px 0;
+  }
+  .pat ul { margin: 8px 0 8px 18px; color: var(--ink-soft); }
+  .pat li { margin-bottom: 4px; }
+  .pat code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    background: var(--line-soft);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  /* DO/DONT */
+  .anti {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .anti div {
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 13.5px;
+  }
+  .anti .dont {
+    background: var(--red-soft);
+    border: 1px solid #f4c6c6;
+    color: var(--red);
+  }
+  .anti .do {
+    background: var(--green-soft);
+    border: 1px solid #c0dfca;
+    color: var(--green);
+  }
+
+  /* VERDICT BLOCK */
+  .verdict {
+    background: var(--paper);
+    border: 2px solid var(--brand);
+    border-radius: 14px;
+    padding: 30px 34px;
+    margin: 24px 0;
+  }
+  .verdict .stamp {
+    display: inline-block;
+    background: var(--brand);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .verdict h2 { margin-bottom: 14px; }
+
+  .gap {
+    background: var(--amber-soft);
+    border-left: 3px solid #e8a91a;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #6b4d10;
+    margin: 12px 0;
+  }
+  .gap b { color: #5a3f08; }
+
+  /* REPO STRUCTURE */
+  .tree {
+    background: #0b1b2e;
+    color: #e6f0fb;
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    margin: 14px 0;
+    overflow-x: auto;
+  }
+  .tree .dir   { color: #82b3df; }
+  .tree .file  { color: #ffffff; }
+  .tree .note  { color: #6b7d96; }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .meta-grid .cell {
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+  }
+  .meta-grid .cell h4 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand-deep);
+    letter-spacing: 0.02em;
+  }
+  .meta-grid .cell p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--brand-soft);
+    color: var(--brand-deep);
+    margin-right: 6px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="eyebrow">Handoff document · v1</p>
+  <h1>AI Wizard Patterns</h1>
+  <p class="lede">
+    A reference repo and article distilling the universal UX contracts every team
+    re-discovers when they ship a multi-step AI-driven flow. Architectural, not
+    product-specific. Built to be stolen from, not installed.
+  </p>
+  <p class="byline">For the next session: this doc is the brief. Open it side-by-side with your editor.</p>
+
+  <!-- ================================================================
+       SECTION 1 — WHAT / WHY
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 1</p>
+    <h2>What is an AI wizard, and why people use them</h2>
+  </div>
+
+  <p>
+    A <b>wizard</b> is a UX shape: multi-step, structured, guided. Stripe Connect, TurboTax,
+    GitHub repo setup, Typeform. The user walks through a defined sequence to produce
+    a defined output.
+  </p>
+  <p>
+    An <b>AI wizard</b> is that same shape, but the LLM lives <i>inside</i> the steps — not
+    in charge of them. Three modes are worth distinguishing:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Shape</th><th>Who decides next step</th><th>Who interprets input</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Plain form / wizard</td><td>Code</td><td>Code (regex, dropdown)</td></tr>
+      <tr><td>Pure AI chat</td><td>LLM</td><td>LLM</td></tr>
+      <tr><td><b>AI wizard (hybrid)</b></td><td><b>Code</b></td><td><b>LLM</b></td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Forms are too rigid; users type what they think the system wants, not what they mean.
+    Chat is too unstructured; great for exploration, terrible when you need five specific
+    fields filled in. The AI wizard is the bridge — structured output, conversational input.
+  </p>
+
+  <h3 style="margin-top:22px;">Where this shape is shipping in 2026</h3>
+  <ul>
+    <li><b>Onboarding</b> — "describe your team, we'll set up the workspace" (Linear, Notion, most B2B SaaS)</li>
+    <li><b>Planning tools</b> — OKRs, roadmaps, product specs, business plans</li>
+    <li><b>Form-fill replacements</b> — taxes, insurance, legal intake</li>
+    <li><b>Interview-style intake</b> — user research, hiring, support, medical</li>
+    <li><b>Configuration</b> — "describe your API, we'll generate the schema"</li>
+    <li><b>Adaptive education</b> — courses that branch based on what the user says they know</li>
+  </ul>
+
+  <div class="card brand">
+    <p style="margin:0;font-size:15px;">
+      <b>It is not a fad shape.</b> It is the natural answer to "we have an LLM and we need
+      usable structured data out the other end." The failure modes — silent rewrites, FSM
+      cursor desync, auto-resume confusion, missing confirmation on destructive AI actions
+      — are universal to the shape. Every team re-discovers them the hard way. That is the
+      gap this repo fills.
+    </p>
+  </div>
+
+  <!-- ================================================================
+       SECTION 2 — THE ARCHITECTURE
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 2</p>
+    <h2>The architecture: deterministic shell, AI core, bridge in the middle</h2>
+  </div>
+
+  <p>
+    The whole point of this architecture is that <b>questions and sequencing</b> are owned
+    by code, and <b>understanding the user's words</b> is owned by the model. The bridge in
+    the middle holds the UX contracts that keep the two layers in sync from the user's
+    point of view.
+  </p>
+
+  <div class="arch">
+    <svg viewBox="0 0 980 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#4892d8" />
+        </marker>
+        <marker id="arrow-back" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#6b7d96" />
+        </marker>
+      </defs>
+
+      <g>
+        <rect x="340" y="20" width="300" height="64" rx="10" fill="#ffffff" stroke="#d8e1ec" />
+        <text x="490" y="48" text-anchor="middle" font-size="14" font-weight="600" fill="#0b1b2e">User</text>
+        <text x="490" y="68" text-anchor="middle" font-size="11" fill="#6b7d96">types answers · edits the plan · jumps between steps</text>
+      </g>
+
+      <line x1="490" y1="84" x2="490" y2="120" stroke="#4892d8" stroke-width="2" marker-end="url(#arrow)" />
+
+      <g>
+        <rect x="280" y="120" width="420" height="70" rx="10" fill="#e6f0fb" stroke="#bcd6ee" />
+        <text x="490" y="146" text-anchor="middle" font-size="14" font-weight="600" fill="#084a8e">Presentational UI</text>
+        <text x="490" y="166" text-anchor="middle" font-size="11" fill="#3c5170">QuestionCard · PlanStrip · StepNav · ConfirmCard</text>
+        <text x="490" y="180" text-anchor="middle" font-size="11" fill="#3c5170">renders what the bridge says to render; zero business rules</text>
+      </g>
+
+      <line x1="490" y1="190" x2="490" y2="226" stroke="#4892d8" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="490" y1="226" x2="490" y2="200" stroke="#6b7d96" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-back)" />
+
+      <g>
+        <rect x="120" y="226" width="740" height="120" rx="12" fill="#ffffff" stroke="#0b66c2" stroke-width="2" />
+        <text x="490" y="252" text-anchor="middle" font-size="15" font-weight="700" fill="#0b66c2">Client Bridge</text>
+        <text x="490" y="270" text-anchor="middle" font-size="11" fill="#6b7d96">enforces every UX contract; the most opinionated file in the system</text>
+
+        <g font-size="11" fill="#3c5170">
+          <text x="160" y="296" font-weight="600" fill="#084a8e">contracts:</text>
+          <text x="160" y="312">no auto-resume drafts</text>
+          <text x="160" y="326">editable AI confirmation before apply</text>
+
+          <text x="370" y="296" font-weight="600" fill="#084a8e">orchestration:</text>
+          <text x="370" y="312">submit · acceptBatch · goBack · jumpTo</text>
+          <text x="370" y="326">inline edit without an LLM round-trip</text>
+
+          <text x="630" y="296" font-weight="600" fill="#084a8e">safety:</text>
+          <text x="630" y="312">orphan-question detection</text>
+          <text x="630" y="326">destructive-action confirmation</text>
+        </g>
+      </g>
+
+      <line x1="280" y1="346" x2="240" y2="394" stroke="#4892d8" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="240" y1="394" x2="280" y2="346" stroke="#6b7d96" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-back)" />
+
+      <g>
+        <rect x="80" y="394" width="320" height="120" rx="10" fill="#ffffff" stroke="#0b66c2" />
+        <text x="240" y="418" text-anchor="middle" font-size="14" font-weight="700" fill="#0b66c2">Deterministic Shell · FSM</text>
+        <text x="240" y="434" text-anchor="middle" font-size="11" fill="#6b7d96">step grammar · sequencing · branching</text>
+        <g font-size="11" fill="#3c5170">
+          <text x="100" y="456">· step ids encode where in the tree we are</text>
+          <text x="100" y="472">· loop dispatch &amp; branching</text>
+          <text x="100" y="488">· snapshot patch per turn</text>
+          <text x="100" y="504">· no LLM in the routing path · fully testable</text>
+        </g>
+      </g>
+
+      <line x1="700" y1="346" x2="740" y2="394" stroke="#4892d8" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="740" y1="394" x2="700" y2="346" stroke="#6b7d96" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-back)" />
+
+      <g>
+        <rect x="580" y="394" width="320" height="120" rx="10" fill="#ffffff" stroke="#0b66c2" />
+        <text x="740" y="418" text-anchor="middle" font-size="14" font-weight="700" fill="#0b66c2">AI Core · Understanding</text>
+        <text x="740" y="434" text-anchor="middle" font-size="11" fill="#6b7d96">split · polish · classify · suggest · reformulate</text>
+        <g font-size="11" fill="#3c5170">
+          <text x="600" y="456">· runs only inside the step the FSM picked</text>
+          <text x="600" y="472">· returns proposals, never mutates state</text>
+          <text x="600" y="488">· never decides what step comes next</text>
+          <text x="600" y="504">· stateless from the wizard's point of view</text>
+        </g>
+      </g>
+    </svg>
+
+    <div class="legend">
+      <div class="swatch">
+        <span class="dot" style="background:#0b66c2"></span>
+        <div><b style="color:#0b1b2e">Deterministic.</b> Code owns it. Reproducible. Testable. No LLM in the loop.</div>
+      </div>
+      <div class="swatch">
+        <span class="dot" style="background:#4892d8"></span>
+        <div><b style="color:#0b1b2e">Bridge.</b> Where the UX contracts live. The most important file in the system.</div>
+      </div>
+      <div class="swatch">
+        <span class="dot" style="background:#e6f0fb;border:1px solid #bcd6ee"></span>
+        <div><b style="color:#0b1b2e">AI.</b> Interprets free text. Proposes. Never decides flow.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card brand">
+    <p style="margin:0;font-size:15px;">
+      <b>The mental model in one sentence:</b> the FSM walks a tree on a fixed grammar of
+      step ids; the AI only ever runs <i>inside</i> a step to interpret what the user typed;
+      the client bridge is the only place that knows when to show the AI's proposal to the
+      user before letting it land.
+    </p>
+  </div>
+
+  <!-- ================================================================
+       SECTION 3 — THE FIVE PATTERNS
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 3</p>
+    <h2>The five UX contracts every AI wizard needs</h2>
+    <p>
+      Each one came out of a real failure mode. Generalised here so the patterns travel —
+      the reference repo will implement each with a minimal example.
+    </p>
+  </div>
+
+  <div style="padding-left:30px;">
+
+    <div class="pat">
+      <div class="pat-no">1</div>
+      <div class="lane">Pattern · persistence</div>
+      <h3>Save the draft. Never auto-resume it.</h3>
+      <div class="why">
+        Why: the FSM resumes mid-question. The user remembers the last screen they saw.
+        These are different mental models. An auto-resumed FSM looks like a wizard that
+        silently skipped questions.
+      </div>
+      <ul>
+        <li>Persist progress to localStorage / server.</li>
+        <li>Expose a <i>Resume previous session</i> CTA on next open.</li>
+        <li>Default: fresh start. Hydration is an explicit user action.</li>
+      </ul>
+    </div>
+
+    <div class="pat">
+      <div class="pat-no">2</div>
+      <div class="lane">Pattern · confirmation</div>
+      <h3>If the AI rewrote the user's input, ask before applying it</h3>
+      <div class="why">
+        Why: silent rewrites — splitting "X and Y" into two items, polishing phrasing,
+        normalising format — feel like gaslighting. Users stop trusting their own input.
+      </div>
+      <ul>
+        <li>AI returns a <i>proposal</i>, not a mutation.</li>
+        <li>Bridge holds the proposal as pending state; UI renders an editable confirmation card.</li>
+        <li>User edits / removes / collapses items, <i>then</i> confirms.</li>
+        <li>Apply as one batch — no per-item LLM round-trip.</li>
+      </ul>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:8px;">
+        This is the single most important contract in the system. Most products skip it
+        and rely on an undo toast. Undo is recovery; confirmation is prevention.
+      </p>
+    </div>
+
+    <div class="pat">
+      <div class="pat-no">3</div>
+      <div class="lane">Pattern · editability</div>
+      <h3>Every AI-generated item is independently editable, re-askable, deletable</h3>
+      <div class="why">
+        Why: AI-generated structured output becomes a frozen artifact the user can't refine
+        without rewinding the whole flow. The contract: anything AI wrote, the user can
+        rewrite without losing the rest of the plan.
+      </div>
+      <ul>
+        <li><b>Inline edit</b> — direct text edit, no LLM turn burned.</li>
+        <li><b>Re-ask</b> — overwrites in place, does <i>not</i> rewind downstream.</li>
+        <li><b>Regenerate with AI</b> — explicit user action, not a silent retry.</li>
+        <li><b>Delete</b> — gated by Pattern 5.</li>
+      </ul>
+    </div>
+
+    <div class="pat">
+      <div class="pat-no">4</div>
+      <div class="lane">Pattern · cursor sync</div>
+      <h3>Detect orphan questions when the user mutates state mid-flow</h3>
+      <div class="why">
+        Why: the FSM has emitted a question about entity X. The user just deleted X from
+        the plan strip. The question is now nonsense. Without this layer, you ship a wizard
+        that asks questions about rows that don't exist.
+      </div>
+      <ul>
+        <li>Every question id maps to the snapshot entity it depends on (a dependency graph).</li>
+        <li>After any user mutation, check whether the current question's dependency still exists.</li>
+        <li>If missing: auto-skip via synthetic FSM reply — no user-visible "huh?" moment.</li>
+      </ul>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:8px;">
+        This is the layer most teams don't even know they're missing. It is the single most
+        differentiated pattern in the set — make it the demo headline.
+      </p>
+    </div>
+
+    <div class="pat">
+      <div class="pat-no">5</div>
+      <div class="lane">Pattern · destructive actions</div>
+      <h3>Confirm destructive actions — even when the user "asked for it"</h3>
+      <div class="why">
+        Why: in an AI flow, delete cascades. Removing a parent entity orphans its children.
+        The confirmation moment is the right place to show the cost.
+      </div>
+      <ul>
+        <li>Modal-gate every destructive action (AlertDialog or equivalent).</li>
+        <li>Show what will cascade — not just "are you sure".</li>
+        <li>Undo toast is a secondary safety net, not the primary one.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ================================================================
+       SECTION 4 — ANTI-PATTERNS
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 4</p>
+    <h2>What you should not do</h2>
+  </div>
+
+  <div class="anti">
+    <div class="dont"><b>Don't</b> let the LLM pick the next question. Even when it would be right 95% of the time.</div>
+    <div class="do"><b>Do</b> let the LLM <i>interpret</i> the answer inside the question the FSM picked.</div>
+
+    <div class="dont"><b>Don't</b> ship "undo" as your only safety net for AI modifications.</div>
+    <div class="do"><b>Do</b> show a confirmation step with editable items before the modification lands.</div>
+
+    <div class="dont"><b>Don't</b> auto-resume a saved draft just because you saved it.</div>
+    <div class="do"><b>Do</b> persist and expose a "Resume" CTA the user has to click.</div>
+
+    <div class="dont"><b>Don't</b> trust that the FSM's pending question still matches the snapshot.</div>
+    <div class="do"><b>Do</b> compute the dependency and skip orphan questions automatically.</div>
+
+    <div class="dont"><b>Don't</b> put business rules in your presentational components.</div>
+    <div class="do"><b>Do</b> push every contract into the client bridge so the UI stays dumb.</div>
+  </div>
+
+  <!-- ================================================================
+       SECTION 5 — MARKET RESEARCH
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 5</p>
+    <h2>Market research summary (May 2026)</h2>
+    <p>
+      Findings from web research before committing to building this. Calibrate expectations
+      to reality.
+    </p>
+  </div>
+
+  <div class="meta-grid">
+    <div class="cell">
+      <h4>Saturated lanes — do not enter</h4>
+      <p>"Agents vs workflows" (Anthropic-led, long tail of derivative posts). LangGraph-as-state-machine. HITL confirmation as a compliance keyword. Generic AI chat UX libraries.</p>
+    </div>
+    <div class="cell">
+      <h4>Open lane — own it</h4>
+      <p>The <b>wizard-shaped</b> AI UX playbook. People are writing <i>about</i> it (Tandem, Userpilot, HackerNoon) but nobody has codified the tactical patterns as a single artifact. Closest competitor: Mario Hayashi's "7 Prompt UX Patterns" — not wizard-specific.</p>
+    </div>
+    <div class="cell">
+      <h4>Demand signal</h4>
+      <p>Weak-to-moderate. Practitioners complain about agent reliability in the abstract, not "wizard rewrote my input." This is early-mover content, not viral demand-pull.</p>
+    </div>
+    <div class="cell">
+      <h4>Realistic traction</h4>
+      <p>Article: 500–3k impressions baseline; 10–50k if a credible voice in the AI builder community reshares. Repo: 200–1,500 stars over 6–12 months if executed well and paired with the article.</p>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       SECTION 6 — THE VERDICT
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 6 · the decision</p>
+    <h2>Build it as a reference repo. Do not build a framework.</h2>
+  </div>
+
+  <div class="verdict">
+    <span class="stamp">verdict</span>
+    <h2>Ship a copy-paste reference repo in the shadcn style</h2>
+    <p>
+      No npm install. No version coupling. No maintenance hell. Publish the patterns as
+      readable code people <i>steal</i> into their own stack. Same audience, same recruiting
+      upside, zero ongoing support burden. If it gets unexpected traction, <i>then</i>
+      consider extracting a framework — but earn that path through demand, not assume it
+      up front.
+    </p>
+
+    <h3 style="margin-top:18px;">Why not a framework</h3>
+    <ul style="color:var(--ink-soft);margin:6px 0 14px 18px;">
+      <li>LangGraph owns "deterministic FSM for LLMs" server-side. CopilotKit (~14k stars) and assistant-ui own React AI UX primitives. Vercel AI SDK owns chat. You'd enter as the 4th option with no team.</li>
+      <li>"AI wizard" is a real shape but a small slice. Most builders ship once for their product and never extract.</li>
+      <li>Framework maintenance is brutal — React/Next/LangGraph churn, provider SDKs, "does this work with Remix?" issues. It's a multi-year side quest.</li>
+    </ul>
+
+    <h3>Why the copy-paste repo works</h3>
+    <ul style="color:var(--ink-soft);margin:6px 0 14px 18px;">
+      <li>shadcn proved this model. No dependency surface. Readable in one sitting.</li>
+      <li>The audience is small but high-signal: people building AI onboarding, structured-output AI forms, planning tools, internal LLM workflows.</li>
+      <li>Same recruiting and credibility upside as a framework, zero burden.</li>
+      <li>Pairs naturally with the article — repo <i>is</i> the article's reference implementation.</li>
+    </ul>
+
+    <h3>Who actually benefits, in order of audience size</h3>
+    <ul style="color:var(--ink-soft);margin:6px 0 14px 18px;">
+      <li>Startup devs bolting LLMs onto onboarding / setup flows — biggest, fastest-growing.</li>
+      <li>Internal-tools engineers building structured AI workflows at larger companies.</li>
+      <li>LangGraph users with no frontend story.</li>
+      <li>Educators / content creators looking for a worked example to teach from.</li>
+    </ul>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:8px;">
+      Calibrate: that's <i>thousands</i> of potential users, not hundreds of thousands. Real,
+      but niche. Treat the repo as a credibility artifact and a thinking exercise — not a
+      growth play.
+    </p>
+  </div>
+
+  <!-- ================================================================
+       SECTION 7 — REPO PLAN
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 7</p>
+    <h2>Suggested repo structure</h2>
+    <p>
+      Single Next.js app. One worked example end-to-end. Each pattern in its own file,
+      readable top to bottom. README is the article.
+    </p>
+  </div>
+
+  <div class="tree">
+<span class="dir">ai-wizard-patterns/</span>
+├── <span class="file">README.md</span>                  <span class="note"># the article lives here</span>
+├── <span class="file">ARCHITECTURE.md</span>            <span class="note"># diagram + the three-layer model</span>
+├── <span class="dir">app/</span>
+│   ├── <span class="file">page.tsx</span>              <span class="note"># landing + link to the demo</span>
+│   └── <span class="dir">demo/</span>
+│       └── <span class="file">page.tsx</span>          <span class="note"># the worked example wizard</span>
+├── <span class="dir">patterns/</span>             <span class="note"># the heart of the repo — read these</span>
+│   ├── <span class="file">01-no-auto-resume.ts</span>
+│   ├── <span class="file">02-editable-confirmation.tsx</span>
+│   ├── <span class="file">03-per-item-controls.tsx</span>
+│   ├── <span class="file">04-orphan-detector.ts</span>
+│   └── <span class="file">05-destructive-confirm.tsx</span>
+├── <span class="dir">wizard/</span>               <span class="note"># the worked example, generalised</span>
+│   ├── <span class="file">fsm.ts</span>                <span class="note"># step grammar + sequencing</span>
+│   ├── <span class="file">ai.ts</span>                 <span class="note"># split / polish / classify / suggest</span>
+│   ├── <span class="file">bridge.ts</span>             <span class="note"># THE client bridge — all 5 contracts</span>
+│   └── <span class="dir">ui/</span>
+│       ├── <span class="file">QuestionCard.tsx</span>
+│       ├── <span class="file">PlanStrip.tsx</span>
+│       ├── <span class="file">ConfirmCard.tsx</span>
+│       └── <span class="file">StepNav.tsx</span>
+└── <span class="dir">docs/</span>
+    ├── <span class="file">why-ai-wizards.md</span>
+    ├── <span class="file">anti-patterns.md</span>
+    └── <span class="file">when-not-to-use.md</span>
+</div>
+
+  <h3 style="margin-top:22px;">Demo domain — pick something universal, not OKR</h3>
+  <p>
+    Depersonalise from the source product. Candidates: <b>plan a trip</b> (destinations →
+    activities → constraints), <b>scope a side project</b> (goals → stack → milestones),
+    <b>interview a candidate</b> (role → criteria → questions). Pick one that maps cleanly
+    to a tree (parent → children → grandchildren) so all five patterns get to demonstrate
+    themselves.
+  </p>
+
+  <h3 style="margin-top:18px;">Tech stack</h3>
+  <ul>
+    <li>Next.js (App Router) — defaults most readers know.</li>
+    <li>TypeScript — patterns are type-shaped; types <i>are</i> the documentation.</li>
+    <li>Anthropic SDK (and a one-line swap to OpenAI) — provider-agnostic patterns.</li>
+    <li>shadcn primitives for the UI — readers can copy components into their stack.</li>
+    <li>Zero database. localStorage for persistence. Keep the surface tiny.</li>
+  </ul>
+
+  <!-- ================================================================
+       SECTION 8 — ARTICLE SKELETON
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 8</p>
+    <h2>Article skeleton (lives in README.md)</h2>
+    <p>
+      11 sections. Total target length 1,800 – 2,400 words. Lead with the failure, not the
+      architecture. Ship a Twitter thread first (one tweet per pattern with a screencap),
+      then the long form.
+    </p>
+  </div>
+
+  <ol style="color:var(--ink-soft);font-size:14px;line-height:1.8;">
+    <li><b>Hook</b> — 30-second screen recording of a wizard misbehaving (orphan question, silent rewrite, or auto-resume confusion). One paragraph of anecdote.</li>
+    <li><b>Diagnosis</b> — these aren't model bugs; they're <i>boundary bugs</i>. The FSM's state and the user's state diverged and nothing was responsible for noticing.</li>
+    <li><b>Architecture</b> — drop the diagram. Walk the three layers. Name the pattern in your own words.</li>
+    <li><b>Pattern 1 — never auto-resume drafts</b></li>
+    <li><b>Pattern 2 — editable AI confirmation before apply</b> (the most important one)</li>
+    <li><b>Pattern 3 — per-item edit / re-ask / regenerate / delete</b></li>
+    <li><b>Pattern 4 — orphan-question detection</b> (the most differentiated one)</li>
+    <li><b>Pattern 5 — confirm destructive actions, even AI-initiated ones</b></li>
+    <li><b>Architecture revisited</b> — re-read the diagram with the patterns loaded</li>
+    <li><b>Anti-patterns</b> — what you should not do</li>
+    <li><b>Closing</b> — open questions, what we'd do differently, who you want to hear from</li>
+  </ol>
+
+  <div class="gap">
+    <b>Author beats to fill once you start writing:</b> the moment each pattern clicked
+    (a real failure you hit), one annotated screenshot per pattern, the one line that
+    names the architecture in your voice.
+  </div>
+
+  <!-- ================================================================
+       SECTION 9 — NEXT SESSION BRIEF
+       ================================================================ -->
+  <div class="divider">
+    <p class="roof">Section 9</p>
+    <h2>Brief for the next session</h2>
+  </div>
+
+  <div class="card">
+    <h3>Drop this doc on the new session as the first message.</h3>
+    <p>It is fully self-contained. The next session will not have the conversational context
+    that produced it; this doc <i>is</i> the context.</p>
+
+    <h3 style="margin-top:18px;">First-day deliverables</h3>
+    <ul>
+      <li>Scaffold the Next.js app with the structure in Section 7.</li>
+      <li>Pick the demo domain (recommend: <b>plan a trip</b> — broadly relatable, has clean parent/child structure for Pattern 4).</li>
+      <li>Build the FSM (<code>wizard/fsm.ts</code>) for the chosen domain — pure, no AI.</li>
+      <li>Wire the simplest possible AI call (<code>wizard/ai.ts</code>) — split-multi only.</li>
+      <li>Implement the client bridge (<code>wizard/bridge.ts</code>) with Patterns 1 and 2 wired up. Skip 3–5 for day one.</li>
+    </ul>
+
+    <h3 style="margin-top:18px;">Hard rules for the build</h3>
+    <ul>
+      <li><b>Do not import from Wiizworks.</b> Start fresh; this is a public repo.</li>
+      <li><b>Patterns over abstractions.</b> If two patterns share a util, copy the util — readers should be able to read each pattern in isolation.</li>
+      <li><b>Types as docs.</b> Every public type gets a comment. Readers will skim types before reading code.</li>
+      <li><b>One worked example, not many.</b> Resist the urge to add a second domain. The whole point is depth, not breadth.</li>
+      <li><b>No emojis. Wiizworks-blue palette.</b> Same restraint as this doc.</li>
+    </ul>
+
+    <h3 style="margin-top:18px;">Out of scope for v1</h3>
+    <ul>
+      <li>Multi-provider abstraction layer (use Anthropic, document the swap, move on).</li>
+      <li>Server-side persistence (localStorage is enough).</li>
+      <li>Auth.</li>
+      <li>A framework abstraction. <i>Do not build one.</i> See Section 6.</li>
+    </ul>
+  </div>
+
+  <div class="card brand" style="margin-top:32px;">
+    <p style="margin:0;font-size:14px;">
+      <b>End of handoff doc.</b> Open this file in the new session and start with Section 9.
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
