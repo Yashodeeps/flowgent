@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["docs-site", "@flowgent/example-onboarding", "@flowgent/example-intake", "@flowgent/example-agent-spec"]
+  "ignore": ["docs-site"]
 }

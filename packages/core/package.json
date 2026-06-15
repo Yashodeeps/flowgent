@@ -1,9 +1,22 @@
 {
   "name": "@flowgent/core",
-  "version": "0.0.1",
-  "description": "AI Wizard UX patterns: deterministic FSM + AI bridge + 5 pattern modules",
+  "version": "0.1.0",
+  "description": "AI Wizard UX patterns — a headless state store + optional AI-assist + a React wizard. Powers wizards, canvases, and docs from one engine.",
+  "keywords": [
+    "ai",
+    "wizard",
+    "ux",
+    "react",
+    "state-management",
+    "undo-redo",
+    "immer",
+    "anthropic",
+    "claude",
+    "forms"
+  ],
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,34 +25,60 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./store": {
+      "types": "./dist/store/index.d.ts",
+      "import": "./dist/store/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    },
     "./ai": {
       "types": "./dist/ai.d.ts",
       "import": "./dist/ai.js"
+    },
+    "./graph": {
+      "types": "./dist/graph/index.d.ts",
+      "import": "./dist/graph/index.js"
     }
   },
   "files": [
     "dist",
     "src",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "echo 'lint: TODO'"
+    "lint": "echo 'lint: TODO'",
+    "prepublishOnly": "pnpm build"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://flowgent.dev",
   "peerDependencies": {
     "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.30.0",
     "fast-json-patch": "^3.1.1",
+    "immer": "^11.1.8",
     "zod": "^3.23.0"
   },
   "devDependencies": {
     "@testing-library/react": "^16.0.0",
     "@types/react": "^18.3.0",
+    "fast-check": "^4.8.0",
     "happy-dom": "^15.0.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",

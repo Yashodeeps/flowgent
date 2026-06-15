@@ -43,6 +43,21 @@ export { checkOrphans } from './patterns/04-orphan-detection.js';
 // AI primitives.
 export { createAIClient, mapErrorToWizardError, split, polish, classify } from './ai.js';
 
+// AI-assist (Layer 2) — optional suggest/rewrite/classify + retry engine.
+export { createAIAssist, runWithRetry, toWizardError, retryPolicy } from './assist.js';
+export type { AIAssist, AIAssistOptions, SuggestOptions, RunOptions } from './assist.js';
+
+// Store (Layer 1) — headless state core.
+export { createStore } from './store/index.js';
+export type { Store, StoreOptions, Middleware, MutationCtx, MutationSource, Patch } from './store/index.js';
+export { persist, loadPersisted, clearPersisted, localStorageAdapter } from './store/middleware/persist.js';
+export type { PersistOptions, PersistAdapter } from './store/middleware/persist.js';
+export { crossTab } from './store/middleware/cross-tab.js';
+export { destructiveGate } from './store/middleware/destructive.js';
+
+// React store hooks (also available React-free? no — these need React).
+export { useStore, useStoreSelector } from './react/index.js';
+
 // Default UI components — exported for selective re-use by demos shadowing
 // only some components via uiOverrides.
 export { DefaultQuestionCard } from './components/QuestionCard.js';

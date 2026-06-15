@@ -171,19 +171,19 @@ Bridge methods:
 
 ## Implementation tasks
 
-- [ ] **T1 (P1)** — `store/` — `createStore<T>` + `mutate(recipe)` on Immer `produceWithPatches`; getState/subscribe; version. Verify: `vitest store/`.
-- [ ] **T2 (P1)** — `store/undo.ts` — undo/redo stack with coalesce window + `maxUndo` cap; `applyExternalPatches` bypasses undo. Verify: examples + fast-check round-trip.
-- [ ] **T3 (P1)** — `store/index.ts` — middleware pipeline: ordered `beforeApply` (veto) + `afterApply`; `MutationCtx`. Verify: veto test blocks a mutation.
-- [ ] **T4 (P1)** — `store/middleware/{persist,cross-tab,destructive}.ts` — extract from current bridge internals; keep debounce/never-auto-resume/stale-reject behavior. Verify: reuse persistence + cross-tab tests.
-- [ ] **T5 (P1)** — `graph/{index,orphan}.ts` — entity-graph preset (Snapshot) + orphan middleware (from patterns/04). Verify: orphan tests.
-- [ ] **T6 (P1)** — `react/index.ts` — `useStore`/`useStoreSelector` (useSyncExternalStore); keep `useBridge`. Verify: use-bridge + new useStore tests, no-tear.
-- [ ] **T7 (P1)** — `ai/assist.ts` — `createAIAssist` → suggest/rewrite/classify; move `runAI` retry/`aiStatus`. Verify: error-handling tests reused + rewrite/classify tests.
+- [x] **T1 (P1)** — `store/` — `createStore<T>` + `mutate(recipe)` on Immer `produceWithPatches`; getState/subscribe; version. Verify: `vitest store/`.
+- [x] **T2 (P1)** — `store/undo.ts` — undo/redo stack with coalesce window + `maxUndo` cap; `applyExternalPatches` bypasses undo. Verify: examples + fast-check round-trip.
+- [x] **T3 (P1)** — `store/index.ts` — middleware pipeline: ordered `beforeApply` (veto) + `afterApply`; `MutationCtx`. Verify: veto test blocks a mutation.
+- [x] **T4 (P1)** — `store/middleware/{persist,cross-tab,destructive}.ts` — extract from current bridge internals; keep debounce/never-auto-resume/stale-reject behavior. Verify: reuse persistence + cross-tab tests.
+- [x] **T5 (P1)** — `graph/{index,orphan}.ts` — entity-graph preset (Snapshot) + orphan middleware (from patterns/04). Verify: orphan tests.
+- [x] **T6 (P1)** — `react/index.ts` — `useStore`/`useStoreSelector` (useSyncExternalStore); keep `useBridge`. Verify: use-bridge + new useStore tests, no-tear.
+- [x] **T7 (P1)** — `ai/assist.ts` — `createAIAssist` → suggest/rewrite/classify; move `runAI` retry/`aiStatus`. Verify: error-handling tests reused + rewrite/classify tests.
 - [ ] **T8 (P1)** — `wizard/bridge.ts` — strangler: reimplement `createBridge` on store+assist+middleware; preserve API. Verify: **all 41 existing tests green**.
 - [ ] **T9 (P2)** — `wizard/fsm.ts` — implement `goBack`/`jumpTo` via step-history stack. Verify: nav tests (back, jump, invalid guard).
-- [ ] **T10 (P2)** — `package.json` exports + build + deps (immer in, fast-json-patch out, react optional). Verify: `pnpm build` emits all subpaths; import-resolution test.
+- [x] **T10 (P2)** — `package.json` exports + build + deps (immer in, fast-json-patch out, react optional). Verify: `pnpm build` emits all subpaths; import-resolution test.
 - [ ] **T11 (P2)** — `docs-site` canvas demo on `@flowgent/core/store` directly (drag nodes, undo/redo, no wizard). Verify: `next build` + browse screenshot.
-- [ ] **T12 (P2)** — README + ARCHITECTURE + CHANGELOG + LICENSE; changeset (minor → 0.1.0). Verify: `changeset status`.
-- [ ] **T13 (P2)** — CI workflows (PR checks + changeset release) + `publishConfig`. Verify: workflow runs green on PR.
+- [x] **T12 (P2)** — README + ARCHITECTURE + CHANGELOG + LICENSE; changeset (minor → 0.1.0). Verify: `changeset status`.
+- [x] **T13 (P2)** — CI workflows (PR checks + changeset release) + `publishConfig`. Verify: workflow runs green on PR.
 
 ## Test plan (coverage targets)
 
