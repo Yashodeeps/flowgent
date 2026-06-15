@@ -1,0 +1,12 @@
+{
+  "name": "@flowgent/langgraph",
+  "version": "0.0.0",
+  "description": "LangGraph adapter for flowgent — UX patterns on top of your LangGraph state. V1.1, NOT V1.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "echo 'V1.1 stub — no build'",
+    "test": "echo 'V1.1 stub — no tests'",
+    "typecheck": "echo 'V1.1 stub — no typecheck'"
+  }
+}
