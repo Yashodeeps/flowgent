@@ -1,5 +1,11 @@
 # @flowgent/core
 
+## 0.2.0
+
+### Minor Changes
+
+- `@flowgent/core/store` is now self-contained: `persist`, `crossTab`, and `destructiveGate` (plus `loadPersisted`/`clearPersisted`/`localStorageAdapter`) are re-exported from the `/store` subpath. Headless consumers no longer need to reach into the barrel (`@flowgent/core`) just to get the built-in middleware — everything for a non-React, non-AI store lives under `@flowgent/core/store`.
+
 ## 0.1.0
 
 ### Minor Changes

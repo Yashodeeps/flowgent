@@ -193,3 +193,12 @@ export function createStore<T>(options: StoreOptions<T>): Store<T> {
 
   return store;
 }
+
+// Built-in middleware — re-exported so `@flowgent/core/store` is self-contained
+// (consumers no longer reach into the barrel for these).
+export { persist, loadPersisted, clearPersisted, localStorageAdapter } from './middleware/persist.js';
+export type { PersistOptions, PersistAdapter } from './middleware/persist.js';
+export { crossTab } from './middleware/cross-tab.js';
+export type { CrossTabOptions, BroadcastChannelLike } from './middleware/cross-tab.js';
+export { destructiveGate } from './middleware/destructive.js';
+export type { DestructiveOptions, DestructiveHold } from './middleware/destructive.js';
