@@ -1,14 +1,35 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DEMOS, KEY_STORAGE } from '../lib/demos';
-import { FileText, Grid, Layers, Zap } from '../components/icons';
+import { KEY_STORAGE } from '../lib/demos';
+import { FileText, Grid, Layers } from '../components/icons';
 
-const ICONS: Record<string, (p: { width?: number }) => JSX.Element> = {
-  onboarding: Layers,
-  application: FileText,
-  automation: Zap,
-};
+const CARDS = [
+  {
+    href: '/onboarding',
+    tag: 'Simple · AI wizard',
+    title: 'Onboarding',
+    blurb: 'A linear wizard — answer in plain language, the AI proposes a batch, you confirm. The classic flow.',
+    flow: 'ask → AI splits → confirm → build',
+    Icon: Layers,
+  },
+  {
+    href: '/resume',
+    tag: 'Real · AI intake',
+    title: 'Resume → application',
+    blurb: 'Paste a resume — AI fills a structured job application. Review and correct every field, then submit.',
+    flow: 'paste → AI fill → review → submit',
+    Icon: FileText,
+  },
+  {
+    href: '/canvas',
+    tag: 'Minimal · store only',
+    title: 'Headless canvas',
+    blurb: 'Draggable nodes with undo/redo and live cross-tab sync. The store with no wizard and no AI.',
+    flow: 'createStore → mutate → undo',
+    Icon: Grid,
+  },
+];
 
 export default function Landing() {
   const [apiKey, setApiKey] = useState('');
@@ -31,15 +52,16 @@ export default function Landing() {
   const hasKey = Boolean(stored);
 
   return (
-    <main className="fg-page" style={{ maxWidth: 960 }}>
+    <main className="fg-page" style={{ maxWidth: 980 }}>
       <div className="fg-hero">
-        <p className="fg-plan__eyebrow">flowgent · v0.0.1</p>
+        <p className="fg-plan__eyebrow">flowgent · v0.1.0 · on npm</p>
         <h1 style={{ fontSize: 42, letterSpacing: '-0.025em', margin: '8px 0 12px', fontWeight: 700 }}>
           AI Wizard UX patterns
         </h1>
-        <p style={{ fontSize: 18, color: 'var(--text-2)', maxWidth: 660, lineHeight: 1.5, margin: 0 }}>
-          The missing layer between rigid forms and freeform chat. Five UX contracts every AI-driven
-          multi-step flow needs — one small TypeScript library, three live demos below.
+        <p style={{ fontSize: 18, color: 'var(--text-2)', maxWidth: 680, lineHeight: 1.5, margin: 0 }}>
+          A headless store, optional AI-assist, and a React wizard — three layers from one engine
+          (<code className="fg-code">npm i @flowgent/core</code>). Each demo below is a different way
+          to use it.
         </p>
       </div>
 
@@ -82,42 +104,35 @@ export default function Landing() {
       </section>
 
       <h2 style={{ fontSize: 14, fontWeight: 650, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '34px 0 14px' }}>
-        Three reference demos
+        Demos — same engine, different use cases
       </h2>
       <div className="fg-grid3">
-        {DEMOS.map((d) => {
-          const Icon = ICONS[d.slug] ?? Layers;
-          return (
-            <a key={d.slug} href={`/${d.slug}`} className="fg-card">
-              <div className="fg-card__icon">
-                <Icon width={20} />
-              </div>
-              <h3 style={{ fontSize: 16.5, margin: '0 0 6px', letterSpacing: '-0.01em' }}>{d.name}</h3>
-              <p style={{ fontSize: 13.5, color: 'var(--text-2)', margin: 0, lineHeight: 1.5 }}>
-                {d.blurb}
-              </p>
-              <div className="fg-card__flow">{d.flow}</div>
-            </a>
-          );
-        })}
+        {CARDS.map(({ href, tag, title, blurb, flow, Icon }) => (
+          <a key={href} href={href} className="fg-card">
+            <div className="fg-card__icon">
+              <Icon width={20} />
+            </div>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 650,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: 'var(--brand)',
+                background: 'var(--brand-tint-2)',
+                border: '1px solid var(--brand-tint)',
+                borderRadius: 5,
+                padding: '2px 7px',
+              }}
+            >
+              {tag}
+            </span>
+            <h3 style={{ fontSize: 16.5, margin: '10px 0 6px', letterSpacing: '-0.01em' }}>{title}</h3>
+            <p style={{ fontSize: 13.5, color: 'var(--text-2)', margin: 0, lineHeight: 1.5 }}>{blurb}</p>
+            <div className="fg-card__flow">{flow}</div>
+          </a>
+        ))}
       </div>
-
-      <h2 style={{ fontSize: 14, fontWeight: 650, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '34px 0 14px' }}>
-        Same engine, no wizard
-      </h2>
-      <a href="/canvas" className="fg-card" style={{ display: 'flex', gap: 18, alignItems: 'center' }}>
-        <div className="fg-card__icon" style={{ marginBottom: 0, flex: 'none' }}>
-          <Grid width={20} />
-        </div>
-        <div>
-          <h3 style={{ fontSize: 16.5, margin: '0 0 6px', letterSpacing: '-0.01em' }}>Headless store canvas</h3>
-          <p style={{ fontSize: 13.5, color: 'var(--text-2)', margin: 0, lineHeight: 1.5 }}>
-            A draggable canvas with undo/redo and live cross-tab sync — the same engine, driven
-            directly via <code className="fg-code">createStore</code> from{' '}
-            <code className="fg-code">@flowgent/core/store</code>. No wizard, no AI.
-          </p>
-        </div>
-      </a>
     </main>
   );
 }

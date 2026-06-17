@@ -860,6 +860,181 @@ a {
   border-radius: 5px;
 }
 
+/* ---- studio demo (AI panel + canvas on one store) ---- */
+.fg-studio {
+  display: grid;
+  grid-template-columns: 344px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .fg-studio {
+    grid-template-columns: 1fr;
+  }
+}
+.fg-studio__panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  padding: 18px;
+  position: sticky;
+  top: 16px;
+}
+.fg-studio__h {
+  font-size: 16px;
+  font-weight: 660;
+  margin: 0 0 3px;
+}
+.fg-studio__sub {
+  font-size: 12.5px;
+  color: var(--text-3);
+  margin: 0 0 13px;
+  line-height: 1.45;
+}
+.fg-studio__divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0 14px;
+}
+.fg-studio .fg-canvas {
+  height: 600px;
+}
+.fg-studio .fg-input {
+  min-height: 88px;
+  font-size: 14px;
+}
+
+/* ---- intake form demos (resume → application, loan) ---- */
+.fg-paste {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  padding: 22px;
+}
+.fg-form {
+  display: grid;
+  gap: 14px;
+}
+.fg-card-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  padding: 18px;
+}
+.fg-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.fg-section__title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0;
+}
+.fg-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 640px) {
+  .fg-grid2 {
+    grid-template-columns: 1fr;
+  }
+}
+.fg-field {
+  display: grid;
+  gap: 5px;
+}
+.fg-field__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.fg-field input,
+.fg-field textarea {
+  width: 100%;
+  padding: 9px 11px;
+  font-size: 14px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 9px;
+  background: var(--surface-2);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  font-family: inherit;
+  color: var(--text);
+}
+.fg-field input:focus,
+.fg-field textarea:focus {
+  border-color: var(--brand);
+  background: var(--surface);
+  box-shadow: var(--ring);
+}
+.fg-field textarea {
+  min-height: 58px;
+  resize: vertical;
+  line-height: 1.45;
+}
+.fg-li {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 13px 13px 5px;
+  margin-bottom: 10px;
+  position: relative;
+  animation: fg-rise 0.25s ease both;
+}
+.fg-li__remove {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  border: none;
+  background: transparent;
+  color: var(--text-3);
+  padding: 4px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+.fg-li__remove:hover {
+  color: var(--danger);
+  background: var(--danger-tint);
+}
+.fg-addrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 550;
+  color: var(--brand);
+  background: transparent;
+  border: 1px dashed var(--border-strong);
+  border-radius: 9px;
+  padding: 8px 12px;
+}
+.fg-addrow:hover {
+  border-color: var(--brand);
+  background: var(--brand-tint-2);
+}
+.fg-aifill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--brand-strong);
+  background: var(--brand-tint-2);
+  border: 1px solid var(--brand-tint);
+  border-radius: 9px;
+  padding: 9px 12px;
+  margin-bottom: 14px;
+}
+
 @keyframes fg-rise {
   from {
     opacity: 0;

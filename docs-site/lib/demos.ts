@@ -214,6 +214,11 @@ const mockSplit: Splitter = async (_prompt, input) => {
   return (out.length ? out : [input.trim()]).slice(0, 8);
 };
 
+// Shared splitter — used by the wizard generator and the Studio demo.
+export function splitText(prompt: string, input: string, mock: boolean): Promise<string[]> {
+  return (mock ? mockSplit : realSplit)(prompt, input);
+}
+
 export function makeGenerator(s: DemoSpec, mock: boolean) {
   const splitter = mock ? mockSplit : realSplit;
   return async function aiGenerate(
