@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { KEY_STORAGE } from '../lib/demos';
-import { FileText, Grid, Layers } from '../components/icons';
+import { FileText, Grid, Home, Layers } from '../components/icons';
 
 const CARDS = [
   {
@@ -20,6 +20,14 @@ const CARDS = [
     blurb: 'Paste a resume — AI fills a structured job application. Review and correct every field, then submit.',
     flow: 'paste → AI fill → review → submit',
     Icon: FileText,
+  },
+  {
+    href: '/loan',
+    tag: 'Real · AI intake',
+    title: 'Mortgage application',
+    blurb: 'Describe your income and the home you want — AI drafts the mortgage application. Confirm every number, then submit.',
+    flow: 'describe → AI draft → confirm → submit',
+    Icon: Home,
   },
   {
     href: '/canvas',

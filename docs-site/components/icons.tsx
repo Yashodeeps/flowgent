@@ -100,3 +100,10 @@ export const Grid = (p: SVGProps<SVGSVGElement>) => (
     <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" />
   </Svg>
 );
+export const Home = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="m3 10.5 9-7.5 9 7.5" />
+    <path d="M5 9.5V21h14V9.5" />
+    <path d="M10 21v-6h4v6" />
+  </Svg>
+);
