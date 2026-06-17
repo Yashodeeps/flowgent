@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { DEMOS, KEY_STORAGE } from '../lib/demos';
-import { FileText, Layers, Zap } from '../components/icons';
+import { FileText, Grid, Layers, Zap } from '../components/icons';
 
 const ICONS: Record<string, (p: { width?: number }) => JSX.Element> = {
   onboarding: Layers,
@@ -101,6 +101,23 @@ export default function Landing() {
           );
         })}
       </div>
+
+      <h2 style={{ fontSize: 14, fontWeight: 650, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '34px 0 14px' }}>
+        Same engine, no wizard
+      </h2>
+      <a href="/canvas" className="fg-card" style={{ display: 'flex', gap: 18, alignItems: 'center' }}>
+        <div className="fg-card__icon" style={{ marginBottom: 0, flex: 'none' }}>
+          <Grid width={20} />
+        </div>
+        <div>
+          <h3 style={{ fontSize: 16.5, margin: '0 0 6px', letterSpacing: '-0.01em' }}>Headless store canvas</h3>
+          <p style={{ fontSize: 13.5, color: 'var(--text-2)', margin: 0, lineHeight: 1.5 }}>
+            A draggable canvas with undo/redo and live cross-tab sync — the same engine, driven
+            directly via <code className="fg-code">createStore</code> from{' '}
+            <code className="fg-code">@flowgent/core/store</code>. No wizard, no AI.
+          </p>
+        </div>
+      </a>
     </main>
   );
 }

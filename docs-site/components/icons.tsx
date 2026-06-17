@@ -83,3 +83,20 @@ export const Zap = (p: SVGProps<SVGSVGElement>) => (
     <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
   </Svg>
 );
+export const Undo = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M9 14 4 9l5-5" />
+    <path d="M4 9h11a5 5 0 0 1 0 10h-1" />
+  </Svg>
+);
+export const Redo = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="m15 14 5-5-5-5" />
+    <path d="M20 9H9a5 5 0 0 0 0 10h1" />
+  </Svg>
+);
+export const Grid = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" />
+  </Svg>
+);
