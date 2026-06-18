@@ -42,6 +42,21 @@ const KIND_COLOR: Record<Kind, string> = {
 const KINDS: Kind[] = ['trigger', 'action', 'condition'];
 const center = (n: WNode) => ({ x: n.x + NODE_W / 2, y: n.y + NODE_H / 2 });
 
+const EXAMPLES = [
+  {
+    label: 'Support triage',
+    prompt: "When a customer emails support, classify it, and if it's urgent page the on-call, otherwise draft a reply.",
+  },
+  {
+    label: 'PR checks',
+    prompt: 'When a pull request opens, run the tests; if they pass request a review, otherwise comment with the failures.',
+  },
+  {
+    label: 'Lead sync',
+    prompt: "Every morning, pull yesterday's signups, enrich each with company info, then add them to the CRM.",
+  },
+];
+
 function mockFlow(): Flow {
   const id = () => crypto.randomUUID();
   const a = id(), b = id(), c = id(), d = id(), e = id();
@@ -311,6 +326,14 @@ export default function WorkflowPage() {
             }}
             disabled={busy}
           />
+          <div className="fg-examples">
+            <span className="fg-examples__label">Try:</span>
+            {EXAMPLES.map((ex) => (
+              <button key={ex.label} className="fg-example" onClick={() => setInput(ex.prompt)} disabled={busy}>
+                {ex.label}
+              </button>
+            ))}
+          </div>
           <div className="fg-actions" style={{ marginTop: 12 }}>
             {busy ? (
               <div className="fg-thinking">

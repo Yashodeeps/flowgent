@@ -1138,6 +1138,37 @@ a {
   pointer-events: none;
 }
 
+/* ---- example-prompt chips ---- */
+.fg-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 11px;
+}
+.fg-examples__label {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.fg-example {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--brand-strong);
+  background: var(--brand-tint-2);
+  border: 1px solid var(--brand-tint);
+  border-radius: 999px;
+  padding: 4px 11px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.fg-example:not(:disabled):hover {
+  background: var(--brand-tint);
+  border-color: var(--brand);
+}
+.fg-example:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @keyframes fg-rise {
   from {
     opacity: 0;
