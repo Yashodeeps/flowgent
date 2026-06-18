@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { KEY_STORAGE } from '../lib/demos';
-import { FileText, Grid, Home, Layers } from '../components/icons';
+import { FileText, Flow, Grid, Home, Layers } from '../components/icons';
 
 const CARDS = [
   {
@@ -28,6 +28,14 @@ const CARDS = [
     blurb: 'Describe your income and the home you want — AI drafts the mortgage application. Confirm every number, then submit.',
     flow: 'describe → AI draft → confirm → submit',
     Icon: Home,
+  },
+  {
+    href: '/workflow',
+    tag: 'Dynamic · store + AI + canvas',
+    title: 'AI workflow builder',
+    blurb: 'Describe an automation — AI lays out the connected steps on a canvas. Drag, wire, retype, delete. One flow, one undo stack.',
+    flow: 'describe → AI flow → wire/edit',
+    Icon: Flow,
   },
   {
     href: '/canvas',
