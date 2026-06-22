@@ -3,7 +3,7 @@
 
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createBridge, useBridge } from '@flowgent/core';
 import type { Bridge, BridgeState, WizardError } from '@flowgent/core';
 import { DEMOS, demoBySlug, KEY_STORAGE, makeGenerator, type DemoSpec } from '../lib/demos';
@@ -16,12 +16,8 @@ function entityLabel(data: unknown): string {
   return typeof label === 'string' && label.trim() ? label : '(unnamed)';
 }
 
-export default function WizardDemo({ slug }: { slug: string }) {
+export default function WizardDemo({ slug, mock = false }: { slug: string; mock?: boolean }) {
   const spec = demoBySlug(slug) ?? DEMOS[0]!;
-  const mock = useMemo(
-    () => typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('mock'),
-    [],
-  );
   const [bridge] = useState<Bridge>(() =>
     createBridge(spec.config, { apiKey: '', aiGenerate: makeGenerator(spec, mock) }),
   );

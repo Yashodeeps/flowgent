@@ -13,6 +13,7 @@ import { persist, crossTab } from '@flowgent/core';
 import { createAIClient } from '@flowgent/core/ai';
 import { useStore } from '@flowgent/core/react';
 import { KEY_STORAGE } from '../../lib/demos';
+import { useIsMock } from '../../lib/use-is-mock';
 import { Back, Plus, Redo, Undo, Warn, X } from '../../components/icons';
 
 type Kind = 'trigger' | 'action' | 'condition';
@@ -127,9 +128,7 @@ async function genFlow(input: string, mock: boolean): Promise<Flow> {
 }
 
 export default function WorkflowPage() {
-  const [mock] = useState(
-    () => typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('mock'),
-  );
+  const mock = useIsMock();
   const [store] = useState<Store<Flow>>(() =>
     createStore<Flow>({
       initial: { nodes: {}, edges: [] },

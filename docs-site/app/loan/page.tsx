@@ -1,5 +1,10 @@
-import IntakeDemo from '../../components/IntakeDemo';
+import WizardIntake from '../../components/WizardIntake';
 
-export default function LoanPage() {
-  return <IntakeDemo slug="loan" />;
+export default async function LoanPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mock?: string }>;
+}) {
+  const sp = await searchParams;
+  return <WizardIntake slug="loan" mock={sp.mock !== undefined} />;
 }

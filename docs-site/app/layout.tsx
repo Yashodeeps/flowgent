@@ -1,4 +1,8 @@
 import './globals.css';
+import { Geist, Geist_Mono } from 'next/font/google';
+
+const sans = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 export const metadata = {
   title: 'flowgent — AI Wizard UX patterns',
@@ -7,19 +11,8 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body
-        style={{
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif',
-          margin: 0,
-          background: 'var(--bg)',
-          color: 'var(--text)',
-          WebkitFontSmoothing: 'antialiased',
-        }}
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

@@ -37,7 +37,10 @@ function makeNode(i: number): CNode {
 function starter(): CanvasDoc {
   const nodes: Record<string, CNode> = {};
   for (let i = 0; i < 3; i++) {
-    const n = makeNode(i);
+    // Deterministic ids for the seed nodes — crypto.randomUUID() here would
+    // differ between the server render and the client hydration, tripping a
+    // React hydration mismatch. Runtime-added nodes still get random ids.
+    const n = { ...makeNode(i), id: `seed-${i}` };
     nodes[n.id] = n;
   }
   return { nodes };
