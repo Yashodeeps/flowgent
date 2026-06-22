@@ -1,5 +1,11 @@
 # @flowgent/core
 
+## 0.2.1
+
+### Patch Changes
+
+- Fix a crash when importing the package barrel (`@flowgent/core`) or the React layer from a native ESM consumer (e.g. `node --input-type=module`, or any non-bundler runtime). `fsm` imported `applyPatch` as a named export from `fast-json-patch`, which is CommonJS and exposes no ESM named exports, so Node's loader threw `SyntaxError: Named export 'applyPatch' not found`. Switched to a default import + destructure. Bundlers (Next.js, Vite) papered over this, so it only affected raw-ESM consumers. The `/store` and `/ai` subpaths were never affected.
+
 ## 0.2.0
 
 ### Minor Changes

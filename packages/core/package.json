@@ -1,6 +1,6 @@
 {
   "name": "@flowgent/core",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "AI Wizard UX patterns — a headless state store + optional AI-assist + a React wizard. Powers wizards, canvases, and docs from one engine.",
   "keywords": [
     "ai",

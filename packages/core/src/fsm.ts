@@ -2,7 +2,13 @@
 // Day 1: minimal implementation that compiles + passes basic tests.
 // Day 3+ extends with full branching + cycle detection.
 
-import { applyPatch, type Operation } from 'fast-json-patch';
+// fast-json-patch is CommonJS — Node's ESM loader can't pluck named exports off
+// it, so importing `{ applyPatch }` crashes a real ESM consumer (bundlers paper
+// over this, which is why the demos never hit it). Default-import the module and
+// destructure the value; `Operation` is a type, erased at compile time.
+import fastJsonPatch from 'fast-json-patch';
+import type { Operation } from 'fast-json-patch';
+const { applyPatch } = fastJsonPatch;
 import type { Question, Snapshot, SnapshotPatch, StepGrammar, StepId } from './types.js';
 
 export function emptySnapshot(): Snapshot {
