@@ -70,7 +70,7 @@ export default function Landing() {
   return (
     <main className="fg-page" style={{ maxWidth: 980 }}>
       <div className="fg-hero">
-        <p className="fg-plan__eyebrow">flowgent · v0.1.0 · on npm</p>
+        <p className="fg-plan__eyebrow">flowgent · v0.2.1 · on npm</p>
         <h1 style={{ fontSize: 42, letterSpacing: '-0.025em', margin: '8px 0 12px', fontWeight: 700 }}>
           AI Wizard UX patterns
         </h1>
