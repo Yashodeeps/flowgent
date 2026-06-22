@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm --filter @flowgent/core build && next build",
     "start": "next start",
     "test": "echo 'docs-site: no tests yet'",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@flowgent/core": "^0.1.0",
+    "@flowgent/core": "workspace:*",
     "next": "^15.0.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
