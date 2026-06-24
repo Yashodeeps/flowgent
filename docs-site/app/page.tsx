@@ -7,41 +7,41 @@ import { FileText, Flow, Grid, Home, Layers } from '../components/icons';
 const CARDS = [
   {
     href: '/onboarding',
-    tag: 'Simple · AI wizard',
+    tag: 'Simple — AI wizard',
     title: 'Onboarding',
-    blurb: 'A linear wizard — answer in plain language, the AI proposes a batch, you confirm. The classic flow.',
+    blurb: 'Describe what you need in plain sentences. The AI parses your words into a batch of steps, proposes them all at once, and you decide what stays.',
     flow: 'ask → AI splits → confirm → build',
     Icon: Layers,
   },
   {
     href: '/resume',
-    tag: 'Real · guided wizard',
+    tag: 'Real — guided wizard',
     title: 'Job application',
-    blurb: 'A guided wizard — list your experience, skills, and education in plain words; the AI separates each into entries you confirm. Your profile builds up as you go.',
+    blurb: 'Paste your experience in one go. The AI reads the paragraph and separates it into individual entries — roles, skills, education — that you confirm one by one.',
     flow: 'ask → AI separates → confirm · state builds',
     Icon: FileText,
   },
   {
     href: '/loan',
-    tag: 'Real · guided wizard',
+    tag: 'Real — guided wizard',
     title: 'Mortgage application',
-    blurb: 'A guided wizard — one question at a time, AI structures each answer, you confirm. The application builds up step by step.',
+    blurb: 'One question at a time. The AI structures each answer, you confirm before it moves on. Nothing gets lost — the application assembles itself on screen.',
     flow: 'ask → confirm → next · state builds',
     Icon: Home,
   },
   {
     href: '/workflow',
-    tag: 'Dynamic · store + AI + canvas',
+    tag: 'Dynamic — store + AI + canvas',
     title: 'AI workflow builder',
-    blurb: 'Describe an automation — AI lays out the connected steps on a canvas. Drag, wire, retype, delete. One flow, one undo stack.',
+    blurb: 'Write a sentence about the automation you have in mind. A canvas of connected steps appears. Wire them differently, rename them, delete what doesn\'t fit.',
     flow: 'describe → AI flow → wire/edit',
     Icon: Flow,
   },
   {
     href: '/canvas',
-    tag: 'Minimal · store only',
+    tag: 'Minimal — store only',
     title: 'Headless canvas',
-    blurb: 'Draggable nodes with undo/redo and live cross-tab sync. The store with no wizard and no AI.',
+    blurb: 'No wizard. No AI. Just the store in its simplest form — draggable nodes, an undo stack that doesn\'t forget, and live sync across tabs.',
     flow: 'createStore → mutate → undo',
     Icon: Grid,
   },
@@ -70,21 +70,31 @@ export default function Landing() {
   return (
     <main className="fg-page" style={{ maxWidth: 980 }}>
       <div className="fg-hero">
-        <p className="fg-plan__eyebrow">flowgent · v0.2.1 · on npm</p>
-        <h1 style={{ fontSize: 42, letterSpacing: '-0.025em', margin: '8px 0 12px', fontWeight: 700 }}>
-          AI Wizard UX patterns
+        <p className="fg-plan__eyebrow">flowgent — v0.2.1 — npm</p>
+        <h1
+          style={{
+            fontFamily: 'var(--serif)',
+            fontSize: 48,
+            letterSpacing: '-0.015em',
+            margin: '8px 0 14px',
+            fontWeight: 600,
+            lineHeight: 1.1,
+          }}
+        >
+          AI Wizard{' '}
+          <em style={{ fontWeight: 400, fontStyle: 'italic' }}>UX patterns</em>
         </h1>
-        <p style={{ fontSize: 18, color: 'var(--text-2)', maxWidth: 680, lineHeight: 1.5, margin: 0 }}>
-          A headless store, optional AI-assist, and a React wizard — three layers from one engine
-          (<code className="fg-code">npm i @flowgent/core</code>). Each demo below is a different way
-          to use it.
+        <p style={{ fontSize: 17, color: 'var(--text-2)', maxWidth: 640, lineHeight: 1.65, margin: 0 }}>
+          Three moving parts — a headless store, an AI that listens, and a React wizard
+          that guides. Install once (<code className="fg-code">npm i @flowgent/core</code>),
+          then copy the pattern that fits your flow.
         </p>
       </div>
 
       <section className="fg-keycard">
         <div style={{ flex: 1 }}>
-          <h2 style={{ fontSize: 16, margin: '0 0 4px' }}>API key</h2>
-          <p style={{ fontSize: 13, color: 'var(--text-3)', margin: 0, lineHeight: 1.5 }}>
+          <h2 style={{ fontSize: 15, margin: '0 0 4px', fontWeight: 650 }}>API key</h2>
+          <p style={{ fontSize: 13, color: 'var(--text-3)', margin: 0, lineHeight: 1.65 }}>
             Bring your own Anthropic key — stored in your browser, sent only to api.anthropic.com.
             Prefer not to paste it? Set <code className="fg-code">ANTHROPIC_API_KEY</code> in{' '}
             <code className="fg-code">docs-site/.env.local</code>, or try any demo with{' '}
@@ -119,20 +129,35 @@ export default function Landing() {
         )}
       </section>
 
-      <h2 style={{ fontSize: 14, fontWeight: 650, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '34px 0 14px' }}>
-        Demos — same engine, different use cases
-      </h2>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '44px 0 20px' }}>
+        <span style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+        <h2
+          style={{
+            fontSize: 11,
+            fontWeight: 650,
+            color: 'var(--text-3)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.12em',
+            margin: 0,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Five demos — one engine
+        </h2>
+        <span style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+      </div>
+
       <div className="fg-grid3">
         {CARDS.map(({ href, tag, title, blurb, flow, Icon }) => (
           <a key={href} href={href} className="fg-card">
             <div className="fg-card__icon">
-              <Icon width={20} />
+              <Icon width={18} />
             </div>
             <span
               style={{
-                fontSize: 11,
+                fontSize: 10.5,
                 fontWeight: 650,
-                letterSpacing: '0.04em',
+                letterSpacing: '0.05em',
                 textTransform: 'uppercase',
                 color: 'var(--brand)',
                 background: 'var(--brand-tint-2)',
@@ -143,8 +168,10 @@ export default function Landing() {
             >
               {tag}
             </span>
-            <h3 style={{ fontSize: 16.5, margin: '10px 0 6px', letterSpacing: '-0.01em' }}>{title}</h3>
-            <p style={{ fontSize: 13.5, color: 'var(--text-2)', margin: 0, lineHeight: 1.5 }}>{blurb}</p>
+            <h3 style={{ fontSize: 16, margin: '10px 0 7px', letterSpacing: '-0.01em', fontWeight: 650 }}>
+              {title}
+            </h3>
+            <p style={{ fontSize: 13.5, color: 'var(--text-2)', margin: 0, lineHeight: 1.6 }}>{blurb}</p>
             <div className="fg-card__flow">{flow}</div>
           </a>
         ))}

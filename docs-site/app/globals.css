@@ -1,33 +1,34 @@
-/* flowgent demo design system — split-cockpit, Wiizworks-blue, light. */
+/* flowgent demo design system — editorial warmth, writer-who-codes. */
 
 :root {
-  --bg: #eef3f9;
-  --surface: #ffffff;
-  --surface-2: #f7fafd;
-  --surface-3: #eef4fb;
-  --border: #e3e9f2;
-  --border-strong: #cfdaea;
-  --text: #0b1b2e;
-  --text-2: #41546e;
-  --text-3: #748399;
-  --brand: #0b66c2;
-  --brand-strong: #084a8e;
-  --brand-tint: #e7f1fc;
-  --brand-tint-2: #f1f7fd;
-  --success: #15803d;
-  --success-tint: #e8f6ee;
-  --warn: #92510a;
-  --warn-tint: #fdf3e3;
-  --warn-border: #f4d9ad;
-  --danger: #b73b14;
-  --danger-tint: #fbede7;
-  --radius: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --shadow-sm: 0 1px 2px rgba(13, 42, 74, 0.06), 0 1px 1px rgba(13, 42, 74, 0.04);
-  --shadow-md: 0 10px 30px -12px rgba(13, 42, 74, 0.22), 0 2px 6px rgba(13, 42, 74, 0.06);
-  --ring: 0 0 0 3px rgba(11, 102, 194, 0.18);
+  --bg: #f4f0e8;
+  --surface: #faf8f3;
+  --surface-2: #f2ede3;
+  --surface-3: #e9e3d7;
+  --border: #ddd7cb;
+  --border-strong: #cdc6b5;
+  --text: #1a1208;
+  --text-2: #4a3e2f;
+  --text-3: #8a7a68;
+  --brand: #2c5f3e;
+  --brand-strong: #1c3f28;
+  --brand-tint: #d4e9db;
+  --brand-tint-2: #eaf4ee;
+  --success: #2c5f3e;
+  --success-tint: #d4e9db;
+  --warn: #7a4a1a;
+  --warn-tint: #fdf0e4;
+  --warn-border: #e8ccaa;
+  --danger: #8c2818;
+  --danger-tint: #f8e8e5;
+  --radius: 14px;
+  --radius-md: 10px;
+  --radius-sm: 7px;
+  --shadow-sm: 0 1px 3px rgba(26, 18, 8, 0.08), 0 1px 2px rgba(26, 18, 8, 0.04);
+  --shadow-md: 0 10px 30px -10px rgba(26, 18, 8, 0.22), 0 2px 8px rgba(26, 18, 8, 0.06);
+  --ring: 0 0 0 3px rgba(44, 95, 62, 0.2);
   --sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --serif: var(--font-serif), Georgia, "Times New Roman", serif;
   --mono: var(--font-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
@@ -41,11 +42,20 @@ body {
   font-family: var(--sans);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
-  /* Depth, not a flat fill: a soft top highlight over a gentle cool wash. */
   background:
-    radial-gradient(1100px 520px at 50% -8%, #ffffff 0%, rgba(255, 255, 255, 0) 62%),
-    linear-gradient(180deg, #eef3f9 0%, #e5ecf6 100%);
+    radial-gradient(1100px 520px at 50% -8%, rgba(255, 252, 247, 0.88) 0%, rgba(244, 240, 232, 0) 65%),
+    linear-gradient(170deg, #f4f0e8 0%, #ece6d8 100%);
   background-attachment: fixed;
+}
+
+/* very subtle paper grain */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
 }
 
 button {
@@ -130,8 +140,6 @@ a {
   grid-template-columns: 320px 1fr;
   gap: 20px;
   align-items: start;
-  /* Center the wizard in the viewport so the step card doesn't float in a
-     top-heavy layout with a large empty void below it. */
   min-height: calc(100vh - 150px);
   align-content: center;
 }
@@ -161,16 +169,17 @@ a {
   color: var(--brand);
 }
 .fg-plan__title {
-  font-size: 19px;
-  font-weight: 680;
-  letter-spacing: -0.01em;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
   margin: 4px 0 2px;
 }
 .fg-plan__sub {
   font-size: 12.5px;
   color: var(--text-3);
   margin: 0 0 16px;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 /* progress rail */
@@ -329,16 +338,18 @@ a {
 }
 
 .fg-q__prompt {
-  font-size: 24px;
-  line-height: 1.25;
-  font-weight: 660;
-  letter-spacing: -0.015em;
+  font-family: var(--serif);
+  font-size: 25px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   margin: 0 0 6px;
 }
 .fg-q__hint {
   font-size: 14px;
   color: var(--text-3);
   margin: 0 0 18px;
+  line-height: 1.6;
 }
 
 .fg-input {
@@ -346,9 +357,9 @@ a {
   resize: vertical;
   min-height: 104px;
   padding: 14px 15px;
-  font-family: inherit; /* else <textarea> falls back to the UA monospace default */
+  font-family: inherit;
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text);
   background: var(--surface-2);
   border: 1.5px solid var(--border-strong);
@@ -410,7 +421,7 @@ a {
 .fg-btn--primary {
   background: var(--brand);
   color: #fff;
-  box-shadow: 0 1px 2px rgba(8, 74, 142, 0.35);
+  box-shadow: 0 1px 2px rgba(28, 63, 40, 0.35);
 }
 .fg-btn--primary:not(:disabled):hover {
   background: var(--brand-strong);
@@ -468,8 +479,9 @@ a {
   margin-bottom: 4px;
 }
 .fg-confirm__title {
-  font-size: 20px;
-  font-weight: 660;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0;
 }
@@ -481,6 +493,7 @@ a {
   font-size: 13.5px;
   color: var(--text-3);
   margin: 0 0 18px;
+  line-height: 1.6;
 }
 .fg-confirm--busy {
   opacity: 0.55;
@@ -608,12 +621,12 @@ a {
   border-radius: 12px;
   font-size: 13.5px;
   color: var(--warn);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 .fg-keywarn code {
   font-family: var(--mono);
   font-size: 12.5px;
-  background: rgba(146, 81, 10, 0.1);
+  background: rgba(122, 74, 26, 0.1);
   padding: 1px 5px;
   border-radius: 5px;
 }
@@ -635,31 +648,34 @@ a {
   animation: fg-pop 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 .fg-done__title {
-  font-size: 22px;
-  font-weight: 680;
-  letter-spacing: -0.015em;
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   margin: 0 0 6px;
 }
 .fg-done__sub {
   font-size: 14px;
   color: var(--text-3);
   margin: 0 0 22px;
+  line-height: 1.6;
 }
 
 /* index cards */
 .fg-hero {
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 .fg-keycard {
   display: flex;
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
-  /* Quieter than the demo cards — it's utility, not the story. */
-  background: var(--surface-2);
+  background: var(--surface);
   border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-tint);
   border-radius: var(--radius-md);
   padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
 }
 .fg-code {
   font-family: var(--mono);
@@ -679,6 +695,8 @@ a {
   background: var(--surface-2);
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
+  color: var(--text);
+  font-family: inherit;
 }
 .fg-keyinput:focus {
   border-color: var(--brand);
@@ -704,18 +722,18 @@ a {
   text-decoration: none;
   color: inherit;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.12s, box-shadow 0.15s, border-color 0.15s;
+  transition: transform 0.14s, box-shadow 0.16s, border-color 0.14s;
 }
 .fg-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
   border-color: var(--border-strong);
 }
 .fg-card__icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--brand-tint);
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--brand-tint-2);
   color: var(--brand);
   display: grid;
   place-items: center;
@@ -723,9 +741,11 @@ a {
 }
 .fg-card__flow {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text-3);
-  margin-top: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
 }
 
 /* ---- canvas demo (headless store, no wizard) ---- */
@@ -901,15 +921,16 @@ a {
   top: 16px;
 }
 .fg-studio__h {
-  font-size: 16px;
-  font-weight: 660;
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
   margin: 0 0 3px;
 }
 .fg-studio__sub {
   font-size: 12.5px;
   color: var(--text-3);
   margin: 0 0 13px;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 .fg-studio__divider {
   height: 1px;
@@ -998,7 +1019,7 @@ a {
 .fg-field textarea {
   min-height: 58px;
   resize: vertical;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 .fg-li {
   background: var(--surface-2);
